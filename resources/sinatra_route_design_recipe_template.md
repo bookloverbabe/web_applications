@@ -10,6 +10,10 @@ You'll need to include:
   * any query parameters (passed in the URL)
   * or body parameters (passed in the request body)
 
+  method: post
+  path: sort-names
+  body: names=Joe,Alice,Zoe,Julia,Kieran
+
 ## 2. Design the Response
 
 The route might return different responses, depending on the result.
@@ -32,6 +36,7 @@ _Replace the below with your own design. Think of all the different possible res
   </body>
 </html>
 ```
+Alice, Joe, Julia, Kieran, Zoe
 
 ```html
 <!-- EXAMPLE -->
@@ -58,8 +63,7 @@ GET /posts?id=1
 # Expected response:
 
 Response for 200 OK
-```
-
+``Alice, Joe, Julia, Kieran, Zoe
 ```
 # Request:
 

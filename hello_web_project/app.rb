@@ -9,7 +9,17 @@ class Application < Sinatra::Base
 
     return "Hello #{name}"
   end
+  
+  get '/names' do
+    return "Julia, Mary, Karim"
+  end
+
+  post '/sort-names' do
+    sort_names = params[:names].split(", ").sort.join(", ")
+    return sort_names
+  end
 end
+  
   # This allows the app code to refresh
   # without having to restart the server.
   # configure :development do

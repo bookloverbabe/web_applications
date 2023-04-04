@@ -21,10 +21,37 @@ describe Application do
     end
 
     it 'should return "Hello Josh"' do
+      # ? used in get request, as a query request
       response = get('/hello?name=Josh')
 
       expect(response.status).to eq(200)
       expect(response.body).to eq('Hello Josh')
+    end
+  end
+
+  context 'GET /names' do
+    it 'should return names' do
+      response = get('/names')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('Julia, Mary, Karim')
+    end
+  end
+
+  context 'POST /sort-names' do
+    it 'should return sort_names' do
+      # For post pass in body parameters, so don't need ? like in above
+      response = post("/sort-names", names: "Joe, Alice, Zoe, Julia, Kieran")
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('Alice, Joe, Julia, Kieran, Zoe')
+    end
+
+    it 'should return sort_names' do
+      response = post("/sort-names", names: "Joe, Alice, Zoe, Julia")
+
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('Alice, Joe, Julia, Zoe')
     end
   end
 end
