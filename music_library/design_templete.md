@@ -10,6 +10,25 @@ You'll need to include:
   * any query parameters (passed in the URL)
   * or body parameters (passed in the request body)
 
+method: post
+path: /albums
+body parameters: 
+title=Voyage
+release_year=2022
+artist_id=2
+
+method: get
+path: /albums
+body parameters:
+title=Voyage
+release_year=2022
+artist_id=2
+
+# Request:
+GET /artists
+
+# Expected response (200 OK)
+Pixies, ABBA, Taylor Swift, Nina Simone
 
 ## 2. Design the Response
 
@@ -33,6 +52,8 @@ _Replace the below with your own design. Think of all the different possible res
   </body>
 </html>
 ```
+Expected response (200 OK)
+(No content) return nil
 
 ```html
 <!-- EXAMPLE -->
@@ -59,6 +80,7 @@ GET /posts?id=1
 # Expected response:
 
 Response for 200 OK
+``return nil
 ```
 # Request:
 

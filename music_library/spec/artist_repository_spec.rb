@@ -3,22 +3,14 @@ require 'artist_repository'
 
 def reset_artists_table
   seed_sql = File.read('spec/seeds/artists_seeds.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
+  connection = PG.connect({ host: 'localhost', dbname: 'music_library', user: 'postgres', password: ENV['DATABASE_PASSWORD']})
+  # dbname: 'music_library_test'
   connection.exec(seed_sql)
 end
 
 describe ArtistRepository do
   before(:each) do 
     reset_artists_table
-  end
-
-  it 'finds all artists' do
-    repo = ArtistRepository.new
-
-    artists = repo.all
-    
-    expect(artists.length).to eq(4)
-    expect(artists.first.name).to eq('Pixies')
   end
 
   it 'finds one artist' do
@@ -42,5 +34,14 @@ describe ArtistRepository do
 
     expect(artists.length).to eq(5)
     expect(artists.last.name).to eq('Kiasmos')
+  end
+
+  it 'finds all artists' do
+    repo = ArtistRepository.new
+
+    artists = repo.all
+    
+    expect(artists.length).to eq(4)
+    expect(artists.first.name).to eq('Pixies')
   end
 end
