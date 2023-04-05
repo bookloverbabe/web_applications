@@ -12,22 +12,29 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
-  context 'GET /hello' do
-    it 'should return "Hello Leo"' do
-      response = get('/hello?name=Leo')
-
-      expect(response.status).to eq(200)
-      expect(response.body).to eq('Hello Leo')
-    end
-
-    it 'should return "Hello Josh"' do
-      # ? used in get request, as a query request
-      response = get('/hello?name=Josh')
-
-      expect(response.status).to eq(200)
-      expect(response.body).to eq('Hello Josh')
+  context 'Get /hello' do
+    it 'returns the html index' do
+      response = get('/hello')
+      expect(response.body).to include('<h1>Hello!</h1>')
     end
   end
+  
+  #context 'GET /hello' do
+  #  it 'should return "Hello Leo"' do
+   #   response = get('/hello?name=Leo')
+
+   #   expect(response.status).to eq(200)
+   #   expect(response.body).to eq('Hello Leo')
+  #  end
+
+   # it 'should return "Hello Josh"' do
+      # ? used in get request, as a query request
+    #  response = get('/hello?name=Josh')
+
+    #  expect(response.status).to eq(200)
+    #  expect(response.body).to eq('Hello Josh')
+  #  end
+ # end
 
   context 'GET /names' do
     it 'should return names' do

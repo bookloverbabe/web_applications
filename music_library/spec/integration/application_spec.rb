@@ -10,6 +10,12 @@ describe Application do
   # class so our tests work.
   let(:app) { Application.new }
 
+    it 'returns the html message with a different name name' do
+      response = get('/', name: 'Clara')
+      expect(response.body).to include('<h1>Hello Clara!</h1>')
+    end
+  end
+
   context 'GET /albums' do
     it 'should return list of albums' do
       response = get('/albums')
