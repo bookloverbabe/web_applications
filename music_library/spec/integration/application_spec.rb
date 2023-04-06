@@ -9,10 +9,15 @@ describe Application do
   # We need to declare the `app` value by instantiating the Application
   # class so our tests work.
   let(:app) { Application.new }
+  
+  context 'GET /albums/:id' do
+    it 'returns the HTML content for a single album' do
+      response = get('/albums/2')
 
-    it 'returns the html message with a different name name' do
-      response = get('/', name: 'Clara')
-      expect(response.body).to include('<h1>Hello Clara!</h1>')
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Surfer Rosa</h1>')
+      expect(response.body).to include('Release year: 1988')
+      expect(response.body).to include('Artist: Pixies')
     end
   end
 

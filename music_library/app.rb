@@ -13,6 +13,16 @@ class Application < Sinatra::Base
     also_reload 'lib/album_repository'
     also_reload 'lib/artist_repository'
   end
+  
+  get '/albums/:id' do
+    repo = AlbumRepository.new
+    artist_repo = ArtistRepository.new
+
+    @album = repo.find(params[:id])
+    @artist = artist_repo.find(@album.artist_id)
+
+    return erb(:album)
+  end
 
   # To confirm that the new albums has been added to the database
   get '/albums' do
@@ -25,6 +35,13 @@ class Application < Sinatra::Base
       album.title
     end.join(', ')
     return response
+  end
+
+  get '/albums/:id' do
+    repo = AlbumRepository.new
+    @album = repo.find(params[:id])
+
+    return erb(:erb)
   end
 
   post '/albums' do
