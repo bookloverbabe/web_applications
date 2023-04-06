@@ -35,10 +35,11 @@ describe Application do
     it 'should return list of albums' do
       response = get('/albums')
 
-      expected_response = 'Surfer Rosa, Waterloo, Super Trouper, Bossanova, Lover, Folklore, I Put a Spell on You, Baltimore, Here Comes the Sun, Fodder on My Wings, Ring Ring'
-
       expect(response.status).to eq(200)
-      expect(response.body).to eq(expected_response)
+      expect(response.body).to include('<a href="/albums/2">Surfer Rosa</a>')
+      expect(response.body).to include('<a href="/albums/3">Waterloo</a>')
+      expect(response.body).to include('<a href="/albums/4">Super Trouper</a>')
+      expect(response.body).to include('<a href="/albums/5">Bossanova</a>')
     end
   end
 

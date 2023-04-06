@@ -34,13 +34,8 @@ class Application < Sinatra::Base
   get '/albums' do
     # Create a new repo of the albumrepo class
     repo = AlbumRepository.new
-    albums = repo.all
-
-    # Get all of the album titles by mapping over the array and then joining them into a string
-    response = albums.map do |album|
-      album.title
-    end.join(', ')
-    return response
+    @albums = repo.all
+    return erb(:albums)
   end
 
   get '/albums/:id' do
