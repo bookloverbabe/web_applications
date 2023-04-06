@@ -21,6 +21,16 @@ describe Application do
     end
   end
 
+  context 'Get /album_list' do
+    it 'returns a list of albums' do
+      response = get('/album_list')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Title: Surfer Rosa')
+      expect(response.body).to include('Release year: 1988')
+    end
+  end
+
   context 'GET /albums' do
     it 'should return list of albums' do
       response = get('/albums')

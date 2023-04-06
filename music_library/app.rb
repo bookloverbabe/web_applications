@@ -24,6 +24,12 @@ class Application < Sinatra::Base
     return erb(:album)
   end
 
+  get '/album_list' do
+    repo = AlbumRepository.new
+    @albums = repo.all
+    return erb(:album_list)
+  end
+
   # To confirm that the new albums has been added to the database
   get '/albums' do
     # Create a new repo of the albumrepo class
