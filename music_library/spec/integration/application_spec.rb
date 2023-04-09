@@ -21,6 +21,16 @@ describe Application do
     end
   end
 
+  context 'Get /artists/:id' do
+    it 'returns the HTML content for a single artist' do
+      response = get('/artists/1')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<h1>Pixies</h1>')
+      expect(response.body).to include('Genre: Rock')
+    end
+  end
+
   context 'Get /album_list' do
     it 'returns a list of albums' do
       response = get('/album_list')
@@ -28,6 +38,16 @@ describe Application do
       expect(response.status).to eq(200)
       expect(response.body).to include('Title: Surfer Rosa')
       expect(response.body).to include('Release year: 1988')
+    end
+  end
+
+  context 'Get /artist_list' do
+    it 'returns a list of artists' do
+      response = get('/artist_list')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Name: Pixies')
+      expect(response.body).to include('Genre: Rock')
     end
   end
 

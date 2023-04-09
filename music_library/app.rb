@@ -24,10 +24,26 @@ class Application < Sinatra::Base
     return erb(:album)
   end
 
+  get '/artists/:id' do
+    repo = ArtistRepository.new
+    @artist = repo.find(params[:id])
+
+    return erb(:artist)
+  end
+
   get '/album_list' do
     repo = AlbumRepository.new
     @albums = repo.all
     return erb(:album_list)
+  end
+  
+  # Return HTML page with lsit of artists
+  # This page should contain a link for each artist listed, linking to /artists/:id 
+  # where :id needs to be the corresponding artist id.
+  get '/artist_list' do
+    repo = ArtistRepository.new
+    @artists = repo.all
+    return erb(:artist_list)
   end
 
   # To confirm that the new albums has been added to the database
