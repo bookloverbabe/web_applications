@@ -16,7 +16,7 @@ class Application < Sinatra::Base
 
   # To confirm that the new albums has been added to the database
   get '/albums' do
-    # Create a new repo of the albumrepo class
+    # Create a new repo of the album repo class
     repo = AlbumRepository.new
     @albums = repo.all
     return erb(:albums)
@@ -41,23 +41,7 @@ class Application < Sinatra::Base
     @albums = repo.all
     return erb(:album_list)
   end
-
-  get '/artists/:id' do
-    repo = ArtistRepository.new
-    @artist = repo.find(params[:id])
-
-    return erb(:artist)
-  end
   
-  # Return HTML page with lsit of artists
-  # This page should contain a link for each artist listed, linking to /artists/:id 
-  # where :id needs to be the corresponding artist id.
-  get '/artist_list' do
-    repo = ArtistRepository.new
-    @artists = repo.all
-    return erb(:artist_list)
-  end
-
   get '/albums/:id' do
     repo = AlbumRepository.new
     @album = repo.find(params[:id])
@@ -82,7 +66,7 @@ class Application < Sinatra::Base
 
     return ''
   end
-  
+
   get '/artists' do
     repo = ArtistRepository.new
     artists = repo.all
@@ -93,7 +77,32 @@ class Application < Sinatra::Base
     return response
   end
 
+  get '/artists/new' do
+    return erb(:new_artist)
+  end
+  
+  get '/artists/:id' do
+    repo = ArtistRepository.new
+    @artist = repo.find(params[:id])
+
+    return erb(:artist)
+  end
+
+  # # Return HTML page with list of artists
+  # # This page should contain a link for each artist listed, linking to /artists/:id 
+  # # where :id needs to be the corresponding artist id.
+  get '/artist_list' do
+    repo = ArtistRepository.new
+    @artists = repo.all
+    return erb(:artist_list)
+  end
+
   post '/artists' do
+    if params[:name] == nil || params[:genre] == nil
+      status 400
+      return '' 
+    end
+
     puts 'this band'
     repo = ArtistRepository.new
     new_artist = Artist.new

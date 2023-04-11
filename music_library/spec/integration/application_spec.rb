@@ -71,7 +71,7 @@ describe Application do
     end
   end
 
-  context 'Get /artists/:id' do
+  context 'GET /artists/:id' do
     it 'returns the HTML content for a single artist' do
       response = get('/artists/1')
 
@@ -81,11 +81,38 @@ describe Application do
     end
   end
 
+  context 'GET /artists/new' do
+    it 'should return the form to add a new artist' do
+      response = get('/artists/new')
+      
+      expect(response.status).to eq(200)
+      expect(response.body).to include('<form method="POST" action="/artists">')
+      expect(response.body).to include('<input type="text" name="artist_name" />')
+      expect(response.body).to include('<input type="text" name="artist_genre" />')
+    end
+  end
+
+  context 'POST /artists' do
+    it 'should validate artist parameters' do
+      response = post('/artists', invalid_artist_name: 'OK Computer', another_invalid_thing: 123)
+      
+      expect(response.status).to eq(400)
+    end
+    it 'should create a new artist' do
+      response = post('/artists', name: 'The Black Keys', genre: 'Rock')
+        expect(response.status).to eq(200)
+        expect(response.body).to eq('')
+
+        response = get('/artists')
+        expect(response.body).to include('The Black Keys')
+    end
+  end
+  
   context 'GET /artists' do
     it 'should return a list of artists' do
       response = get('/artists')
 
-      expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone'
+      expected_response = 'Pixies, ABBA, Taylor Swift, Nina Simone, The Black Keys'
       expect(response.status).to eq(200)
       expect(response.body).to eq(expected_response)
     end
