@@ -42,4 +42,13 @@ describe Application do
       expect(response.body).to include('<a href="/">Back to the homepage</a>')
     end
   end
+
+    context 'GET /check' do
+    it 'should get valid postcode result' do
+      response = get('/check', postcode: 'EC1A 1BB')
+
+      expect(response.status).to eq(200)
+      expect(response.body).to include('This is a valid postcode')
+    end
+  end
 end
